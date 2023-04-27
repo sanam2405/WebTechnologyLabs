@@ -1,0 +1,6 @@
+Write a necessary JavaScript functions to verify the content of text box and password field in
+previous assignments. If there is any error, show appropriate message in red color in a label. Use
+following rules:
+A login name can only have alphanumeric characters and „_‟(underscore)
+Number of characters in the login must not exceed 10
+A password must have 6 to 10 characters containing at least one digit and one uppercase letter.

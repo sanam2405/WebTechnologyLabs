@@ -1,0 +1,5 @@
+Consider a web page that locally stores (using IndexDB) the details (such as name, manufacturer,
+price etc) of different components(e.g. HDD, Monitor etc) of the computer. The web page contains
+buttons captioned “add”, “show”, “update” and “delete”. When “add” button is clicked, the pages
+shows a dialog box to get the details of the item to be added and inserts it to the IndexDB. Implement
+the functionality of the other buttons. Consider (name, manufacturer) as the primary key.

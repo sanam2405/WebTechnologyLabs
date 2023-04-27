@@ -1,0 +1,5 @@
+Write an application as follows: For the first request, the server generates an HTML file to display the
+integer 0, with two buttons captioned “prev” and “next”. If the user clicks on the next button, the
+server sends the integer next to the one displayed. Similarly, when prev button is clicked, the server
+sends the integer previous to the one displayed. Track the session this using, Hidden fields, URL
+Rewriting, Cookies, and Session API

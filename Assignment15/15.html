@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        table,
+        td,
+        th {
+           text-align: center;
+        }
+
+        td,
+        th {
+            padding: 15px;
+        }
+    </style>
+
+  <script>
+    function generateTable() {
+      // Get the input value
+      var n = parseInt(document.getElementById("input").value);
+
+      // Create a web worker
+      var worker = new Worker("worker.js");
+
+      // Send the input value to the worker
+      worker.postMessage(n);
+
+      // Listen for messages from the worker
+      worker.onmessage = function(event) {
+        // Display the factorial table
+        var table = document.getElementById("table");
+        table.innerHTML = "<tr><th>n</th><th>n!</th></tr>";
+        for (var i = 1; i <= n; i++) {
+          var row = document.createElement("tr");
+          var cell1 = document.createElement("td");
+          var cell2 = document.createElement("td");
+          cell1.innerHTML = i;
+          cell2.innerHTML = event.data[i - 1];
+          row.appendChild(cell1);
+          row.appendChild(cell2);
+          table.appendChild(row);
+        }
+      };
+    }
+  </script>
+</head>
+<body bgcolor=#FFFFE0>
+  <h1>Solution to Assignment Number : 9</h1>
+  <h3>Factorial Table Generator</h3>
+  <p>Enter a positive integer:</p>
+  <input type="number" id="input" value="5">
+  <button onclick="generateTable()">Generate Table</button>
+  <table id="table"></table>
+  <script src="worker.js"></script>
+</body>
+</html>

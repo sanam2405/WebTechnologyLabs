@@ -1,0 +1,3 @@
+Write a simplified web page for online bill payment. The page typically contains a group of two radio
+buttons labeled “pay now” and “pay later”. When the radio button labeled “pay later” is selected, an
+additional text box (to hold the date of payment) appears.

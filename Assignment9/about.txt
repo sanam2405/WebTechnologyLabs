@@ -1,0 +1,4 @@
+Write a web page that contains two drop-down lists captioned states and districts(initially empty). The
+first one contains the names of states in India. When a specific state is selected, the second will have
+names of districts of the selected state. When a specific state and district is selected, show the
+information of that district in very brief.

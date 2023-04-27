@@ -1,0 +1,2 @@
+Use HTML5 canvas and <SVG> tag to create following picture. Create one and use
+transformation to create others.

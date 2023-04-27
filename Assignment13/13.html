@@ -1,0 +1,213 @@
+<html>
+
+<head>
+    <title>Question-13</title>
+    <style>
+        .btn {
+            border-radius: 10px;
+            background: rgb(59, 26, 11);
+            color: white;
+            font-size: medium;
+            border: 0px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn" id="addBtn">add</button>
+    <button class="btn" id="showBtn">show</button>
+    <button class="btn" id="updateBtn">update</button>
+    <button class="btn" id="deleteBtn">delete</button>
+    <br><br>
+
+    <form id="addForm">
+        <h2>Add Data</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name"> &emsp;
+
+        <label for="manufacturer">Manufacturer:</label>
+        <input type="text" id="manufacturer"> &emsp;
+
+        <label for="price">Price:</label>
+        <input type="text" id="price">
+        <button>Add Data</button>
+    </form>
+
+    <form id="updateForm">
+        <h2>Update Data</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name"> &emsp;
+
+        <label for="manufacturer">Manufacturer:</label>
+        <input type="text" id="manufacturer"> &emsp;
+
+        <label for="price">Price:</label>
+        <input type="text" id="price">
+        <button>Update Data</button>
+    </form>
+
+    <form id="deleteForm">
+        <h2>Delete Data</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name"> &emsp;
+
+        <label for="manufacturer">Manufacturer:</label>
+        <input type="text" id="manufacturer"> &emsp;
+
+        <button>Delete Data</button>
+    </form>
+
+    <div id="tableData">
+        <h2>Data stored in IndexDB</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Manufacturer</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const addBtn = document.getElementById("addBtn");
+        const showBtn = document.getElementById("showBtn");
+        const updateBtn = document.getElementById("updateBtn");
+        const deleteBtn = document.getElementById("deleteBtn");
+        const addForm = document.getElementById("addForm");
+        const updateForm = document.getElementById("updateForm");
+        const deleteForm = document.getElementById("deleteForm");
+        const tableData = document.getElementById("tableData");
+        const tableBody = document.getElementById("tableBody");
+
+        addForm.style.display = "none";
+        updateForm.style.display = "none";
+        deleteForm.style.display = "none";
+        tableData.style.display = "none";
+
+        addBtn.addEventListener("click", () => {
+            addForm.style.display = "block";
+            updateForm.style.display = "none";
+            deleteForm.style.display = "none";
+            tableData.style.display = "none";
+        })
+        updateBtn.addEventListener("click", () => {
+            addForm.style.display = "none";
+            updateForm.style.display = "block";
+            deleteForm.style.display = "none";
+            tableData.style.display = "none";
+        })
+        deleteBtn.addEventListener("click", () => {
+            addForm.style.display = "none";
+            updateForm.style.display = "none";
+            deleteForm.style.display = "block";
+            tableData.style.display = "none";
+        })
+        showBtn.addEventListener("click", () => {
+            addForm.style.display = "none";
+            updateForm.style.display = "none";
+            deleteForm.style.display = "none";
+            tableData.style.display = "block";
+
+            tableBody.innerHTML = "";
+
+            // retrieving data from IndexDB
+            const transaction = db.transaction(objectStoreName, "readonly");
+            const objStore = transaction.objectStore(objectStoreName);
+            const request = objStore.getAll();
+            request.onsuccess = (e) => {
+                const result = e.target.result;
+                result.forEach((data) => {
+                    const tr = document.createElement("tr");
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    const td3 = document.createElement("td");
+                    td1.innerText = data.name;
+                    td2.innerText = data.manufacturer;
+                    td3.innerText = data.price;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    tableBody.appendChild(tr);
+                })
+            }
+        })
+
+        const dbName = "db", dbVersion = "1", objectStoreName = "Store"; let db = null;
+        const request = indexedDB.open(dbName, dbVersion);
+        request.onupgradeneeded = (e) => {
+            db = e.target.result;
+            db.createObjectStore(objectStoreName, { keyPath: ["name", "manufacturer"] });
+        }
+        request.onsuccess = (e) => {
+            db = e.target.result;
+            console.log(`DB: ${db.name} Version: ${db.version}`);
+        }
+
+        addForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const name = e.srcElement[0].value;
+            const manufacturer = e.srcElement[1].value;
+            const price = e.srcElement[2].value;
+            const data = { name, manufacturer, price };
+            console.log(data);
+
+            const transaction = db.transaction(objectStoreName, "readwrite");
+            const objStore = transaction.objectStore(objectStoreName);
+            objStore.add(data);
+        })
+        updateForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const name = e.srcElement[0].value;
+            const manufacturer = e.srcElement[1].value;
+            const price = e.srcElement[2].value;
+            const data = { name, manufacturer, price };
+            console.log(data);
+
+            const transaction = db.transaction(objectStoreName, "readwrite");
+            const objStore = transaction.objectStore(objectStoreName);
+
+            const request2 = objStore.getAll();
+            request2.onsuccess = (e) => {
+                const result = e.target.result;
+                const foundData = result.find(res => res.name === data.name && res.manufacturer === data.manufacturer);
+                if (foundData === undefined) {
+                    alert("Data not found in the database");
+                    return;
+                }
+                const request = objStore.put(data);
+                request.onsuccess = (e) => {
+                    console.log("Data updated successfully");
+                }
+                request.onerror = (e) => {
+                    console.log(e);
+                }
+            }
+        })
+        deleteForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const name = e.srcElement[0].value;
+            const manufacturer = e.srcElement[1].value;
+            const data = [name, manufacturer];
+            console.log(data);
+
+            const transaction = db.transaction(objectStoreName, "readwrite");
+            const objStore = transaction.objectStore(objectStoreName);
+            const request = objStore.delete(data);
+            request.onsuccess = (e) => {
+                console.log(e);
+                console.log("Deleted successfully");
+            }
+            request.onerror = (e) => {
+                console.log(e);
+            }
+        })
+    </script>
+
+</body>
+
+</html>

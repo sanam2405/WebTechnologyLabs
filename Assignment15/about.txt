@@ -1,0 +1,2 @@
+Write a web page that generates a factorial table using a web worker. The main page sends an integer
+number (say 5) and the worker returns the factorial table (1 to 5) and the main page finally displays it.

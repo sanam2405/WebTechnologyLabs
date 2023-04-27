@@ -1,0 +1,4 @@
+Write a web page that contains two drop-down lists (i.e. combo box) captioned year and semester.
+The first one contains values 1st, 2nd, 3rd and 4th and second one contains values 1st and 2nd. When
+a particular year and semester is selected, a list of subjects taught in that specific year and semester
+should appear.

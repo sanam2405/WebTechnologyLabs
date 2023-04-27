@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE question-paper SYSTEM "question.dtd">
+<question-paper>
+  <question no="1">
+    <text>What is the capital of France?</text>
+    <optionA>Paris</optionA>
+    <optionB>London</optionB>
+    <optionC>Berlin</optionC>
+    <optionD>Moscow</optionD>
+    <answer value="optionA">Paris</answer>
+  </question>
+  <question no="2">
+    <text>Who invented the telephone?</text>
+    <optionA>Thomas Edison</optionA>
+    <optionB>Graham Bell</optionB>
+    <optionC>Isaac Newton</optionC>
+    <optionD>Albert Einstein</optionD>
+    <answer value="optionB">Graham Bell</answer>
+  </question>
+  <question no="3">
+    <text>What is the largest continent in the world?</text>
+    <optionA>Africa</optionA>
+    <optionB>Europe</optionB>
+    <optionC>Asia</optionC>
+    <optionD>Australia</optionD>
+    <answer value="optionC">Asia</answer>
+  </question>
+</question-paper>

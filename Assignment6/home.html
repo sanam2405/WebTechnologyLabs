@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body bgcolor=#FFFFE0>
+
+<h1>Solution to Assignment Number : 6</h1>
+<h2>This is <i>home.html</i> Webpage</h2>
+<h3> If the user is ideal for 10 seconds, the logout.html page will be loaded.</h3>
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam culpa nostrum libero obcaecati! Quisquam harum non sed impedit earum error velit dolorum repellendus? Qui delectus id ducimus corporis eius quia!
+</p>
+
+<script>
+    (function () {
+
+        // Ideal time in seconds
+        const idleDurationSecs = 10;
+
+        // Redirect idle users to this URL
+        const redirectUrl = 
+            './logout.html';
+          
+        // Variable to hold the timeout
+        let idleTimeout; 
+
+        const resetIdleTimeout = function () {
+
+            // Clears the existing timeout
+            if (idleTimeout) 
+                clearTimeout(idleTimeout);
+
+            // Set a new idle timeout to load the
+            // redirectUrl after idleDurationSecs
+            idleTimeout = setTimeout(() => location.href 
+                = redirectUrl, idleDurationSecs * 1000);
+        };
+
+        // Init on page load
+        resetIdleTimeout();
+
+        // Reset the idle timeout on any of
+        // the events listed below
+        ['click', 'touchstart', 'mousemove']
+            .forEach(event => document.addEventListener(
+                event, resetIdleTimeout, false)
+        );
+    })();
+</script>
+</body>
+</html>

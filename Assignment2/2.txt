@@ -1,0 +1,14 @@
+To obtain the file "first.html" from a remote machine using telnet and HTTP, we would first need to have telnet installed on our local machine. 
+We can then open a command prompt or terminal and use the telnet command to connect to the remote machine.
+
+Assuming the IP address of the remote machine is "192.168.1.112" and the web server on that machine is running on port 80, we would enter the following command to connect:
+
+telnet 192.168.1.112 80
+Once connected, we can send an HTTP GET request to retrieve the file "first.html" by typing in the following command:
+
+GET /first.html HTTP/1.1
+And then hit enter twice.
+
+We should then receive a response from the server, which will include the contents of the "first.html" file if it exists and is accessible. The response will also include information such as the HTTP status code and any headers.
+
+Please note that this method is less common, typically developers use a browser or http client library to retrieve the files from remote servers. Additionally, telnet is not a secure protocol and it is recommended to use ssh or https for this kind of operations.
